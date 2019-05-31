@@ -22,7 +22,7 @@ namespace cfg_ss
         public string temp2;
         public string temp;
         public int line_No = 1;
-
+        
         Dictionary<string, string> Keywordss = new Dictionary<string, string>()
         {
           {"Main" , "Main"} , {"void", "void"} ,{"MainClass" , "MainClass"} ,  {"true" , "Bool_Const"} ,  {"false" , "Bool_Const"}, {"int" , "DT"} , {"float", "DT"} , {"char", "DT"} , {"string","DT"} , {"bool","DT"} , {"Floop","Floop"} , {"Wloop","Wloop"} , {"Jump","Jump"} , {"Break","Break"}, {"Switch","Switch"} , {"Case","Case"}, {"Default","Default"} , {"Class","Class"} , {"public","AM"} , {"private","AM"} ,{"If","If"},{"Iff","Iff" },{"Else","Else"},{"return","return"},{"Sealed","Sealed"},{"Abstract","Abstract"},{"EndFloop","EndFloop"},{"EndWloop","EndWloop"} ,{"override","VO"},{"virtual","VO"},{"new","new"}
@@ -53,7 +53,7 @@ namespace cfg_ss
         {
             richTextBox3.Text = null;
             ArrayList mini_token = new ArrayList();
-            
+
             ArrayList tokenss = new ArrayList();
             ArrayList naya_token = new ArrayList();
             string Inp_Str = richTextBox1.Text;
@@ -480,20 +480,20 @@ namespace cfg_ss
             for (int l = 0; l < mini_token.Count; l++)
             {
                 if (mini_token[l] != " " && mini_token[l] != "\n" && mini_token[l] != "" && mini_token[l] != "  "
-                    && mini_token[l] != "   " && mini_token[l] != "    " && mini_token[l] != "\r" && mini_token[l] != "\r" + " " && mini_token[l] != "\n" + " " 
-                    && mini_token[l]!= "        " && mini_token[l] != "\n " && mini_token[l] != "           ")
+                    && mini_token[l] != "   " && mini_token[l] != "    " && mini_token[l] != "\r" && mini_token[l] != "\r" + " " && mini_token[l] != "\n" + " "
+                    && mini_token[l] != "        " && mini_token[l] != "\n " && mini_token[l] != "           ")
 
 
                 {
-                     naya_token.Add(mini_token[l]); 
+                    naya_token.Add(mini_token[l]);
                 }
             }
-           
+
             foreach (string naya in naya_token)
             {
-               richTextBox4.Text = richTextBox4.Text + '\n' + naya;
+                richTextBox4.Text = richTextBox4.Text + '\n' + naya;
             }
-            
+
 
             //token making
             string is_Key(string a1)
@@ -535,18 +535,18 @@ namespace cfg_ss
 
             for (int z = 0; z < naya_token.Count; z++)
             {
-               
+
                 string ent = Convert.ToString(naya_token[z]);
                 if (ent == "Enter")
                 {
                     line_No++;
                     continue;
                 }
-                
+
                 string kw = is_Key(Convert.ToString(naya_token[z]));
                 if (kw != "no match")
                 {
-                    token obj = new token(kw , Convert.ToString(naya_token[z]), line_No);
+                    token obj = new token(kw, Convert.ToString(naya_token[z]), line_No);
                     tokenss.Add(obj);
                     kw = "";
                     continue;
@@ -628,7 +628,7 @@ namespace cfg_ss
                 //}
                 if (A1 == false && A2 == false && A3 == false && A4 == false && A5 == false)
                 {
-                    token obj = new token("Invalid",Convert.ToString(naya_token[z]) , line_No);
+                    token obj = new token("Invalid", Convert.ToString(naya_token[z]), line_No);
                     if (naya_token[z] != "\n" || naya_token[z] != " " || naya_token[z] != "  ")
                     {
                         tokenss.Add(obj);
@@ -639,8 +639,8 @@ namespace cfg_ss
                 A3 = false;
                 A4 = false;
                 A5 = false;
-                
-                
+
+
             }
             token obj1 = new token("$", "$", line_No);
             tokenss.Add(obj1);
@@ -648,7 +648,7 @@ namespace cfg_ss
             {
                 richTextBox3.Text = richTextBox3.Text + '\n' + s.ToString();
             }
-           
+
 
             //syntax analyzer
 
@@ -661,68 +661,68 @@ namespace cfg_ss
                 string Cp = parts[0].Substring(1).Trim();
                 string Vp = parts[1].Trim();
                 string LineNo = parts[2].Substring(0, parts[2].Length - 1);
-                
-                foreach(string xx in parts)
+
+                foreach (string xx in parts)
                 {
                     TS[k] = new token2(Cp, Vp, LineNo);
                 }
-                
+
             }
-           
+
             MessageBox.Show("Mapped All Tokens");
             for (int j = 0; j < TS.Length; j++)
             {
-                richTextBox5.Text = richTextBox5.Text+ TS[j].Get_CP() + TS[j].Get_VP() + TS[j].Get_Line();
+                richTextBox5.Text = richTextBox5.Text + TS[j].Get_CP() + TS[j].Get_VP() + TS[j].Get_Line();
             }
             //for(int i=0;i<TS.Length;i++)
             //{
             int i = 0;
-                string CCC;
-                CCC = TS[i].Get_CP();
-               
-                if (S1())
-                {
-                    if (CCC == "$")
-                    {
-                        MessageBox.Show("Valid Syntax");
-                        richTextBox6.Text = "Valid Syntax";
-                    }
-                    
+            string CCC;
+            CCC = TS[i].Get_CP();
 
-                }
-               else if(S1() == false)
+            if (S1())
+            {
+                if (CCC == "$")
                 {
-                    
-                    
-                        MessageBox.Show("Invalid Syntax");
-                        
-                        richTextBox6.Text = "Invalid Syntax" + " , " + "Error at Line" + TS[i].Get_Line();
-                        
-                    
-                    
+                    MessageBox.Show("Valid Syntax");
+                    richTextBox6.Text = "Valid Syntax";
                 }
                 
-                
 
-                bool S1()
+            }
+            else if (S1() == false)
+            {
+
+
+                MessageBox.Show("Invalid Syntax");
+
+                richTextBox6.Text = "Invalid Syntax" + " , " + "Error at Line" + TS[i].Get_Line();
+
+
+
+            }
+
+
+
+            bool S1()
+            {
+                if (Main())
                 {
-                    if(Main())
+                    if (Classes())
                     {
-                        if (Classes())
-                        {
-                            return true;
-                        }
+                        return true;
                     }
-                    return false;
                 }
+                return false;
+            }
 
-                bool Main()
+            bool Main()
+            {
+                if (CCC == "AM")
                 {
-                    if (CCC == "AM")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP(); //Class part updated
-                        
+                    i++;
+                    CCC = TS[i].Get_CP(); //Class part updated
+
 
                     if (CCC == "Class")
                     {
@@ -758,27 +758,27 @@ namespace cfg_ss
 
                     }
                 }
-                    return false;
-                }
-                bool ClassBase()
+                return false;
+            }
+            bool ClassBase()
+            {
+                if (CCC == "::")
                 {
-                    if(CCC == "::")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if(CCC == "ID")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            return true;
-                        }
-                    }
-                   else if(CCC == "{")
-                    {
                         return true;
                     }
-                    return false;
                 }
+                else if (CCC == "{")
+                {
+                    return true;
+                }
+                return false;
+            }
 
             bool CBODY()
             {
@@ -792,7 +792,7 @@ namespace cfg_ss
                         }
                     }
                 }
-
+                
                 return false;
             }
             bool CBODYAttr()
@@ -863,212 +863,212 @@ namespace cfg_ss
                 return false;
             }
             bool Classes()
+            {
+                if (Class_Dec1())
                 {
-                    if(Class_Dec1())
-                    {
-                        if(Classes())
-                        {
-                            return true;
-                        }
-                    }
-                    else if(CCC == "$")
-                    {
-                        return true;
-                    } 
-                        return false;
-                }
-                bool Class_Dec1()
-                {
-                    if(CCC == "AM")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(Class_Dec2())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                bool Class_Dec2()
-                {
-                    if(AAA())
-                    {
-                        if(ClassDec())
-                        {
-                            return true;
-                        }
-                    }
-                    else if(Abstr_st())
+                    if (Classes())
                     {
                         return true;
                     }
-                    return false;
                 }
+                else if (CCC == "$")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool Class_Dec1()
+            {
+                if (CCC == "AM")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Class_Dec2())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool Class_Dec2()
+            {
+                if (AAA())
+                {
+                    if (ClassDec())
+                    {
+                        return true;
+                    }
+                }
+                else if (Abstr_st())
+                {
+                    return true;
+                }
+                return false;
+            }
 
-                bool ClassDec()
+            bool ClassDec()
+            {
+                if (CCC == "Class")
                 {
-                    if(CCC == "Class")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if(CCC == "ID")
+                        if (ClassBase())
                         {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(ClassBase())
-                            {
-                                if(Body())
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    return false;
-                }
-                bool AAA()
-                {
-                    if (CCC == "Sealed")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    else if (CCC == "Class")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool Abstr_st()
-                {
-                    if(CCC == "Abstract")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "Class")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(CCC == "ID")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(ClassBase())
-                                {
-                                    if(CCC == "{")
-                                    {
-                                        i++;
-                                        CCC = TS[i].Get_CP();
-                                        if(Abs_Functions())
-                                        {
-                                            if(CCC == "}")
-                                                i++;
-                                            CCC = TS[i].Get_CP();
-                                            return true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    return false;
-                }
-                bool Abs_Functions()
-                {
-                    if(CCC == "AM")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(Abstr_AD())
-                        {
-                            if(Abs_N())
+                            if (Body())
                             {
                                 return true;
                             }
                         }
-                        return false;
                     }
-                    return false;
                 }
-                bool Abstr_AD()
+                return false;
+            }
+            bool AAA()
+            {
+                if (CCC == "Sealed")
                 {
-                    if(CCC == "Abstract")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                else if (CCC == "Class")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool Abstr_st()
+            {
+                if (CCC == "Abstract")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "Class")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if(ART())
+                        if (CCC == "ID")
                         {
-                            if(CCC == "ID")
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (ClassBase())
                             {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(CCC == "(")
+                                if (CCC == "{")
                                 {
                                     i++;
                                     CCC = TS[i].Get_CP();
-                                    if(Func_Cond())
+                                    if (Abs_Functions())
                                     {
-                                        if(CCC == ")")
+                                        if (CCC == "}")
                                             i++;
                                         CCC = TS[i].Get_CP();
-                                        if(CCC == ";")
-                                        {
-                                            i++;
-                                            CCC = TS[i].Get_CP();
-                                            return true;
-                                        }
+                                        return true;
                                     }
                                 }
                             }
                         }
                     }
+                }
+                return false;
+            }
+            bool Abs_Functions()
+            {
+                if (CCC == "AM")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Abstr_AD())
+                    {
+                        if (Abs_N())
+                        {
+                            return true;
+                        }
+                    }
                     return false;
                 }
-                bool Abs_N()
+                return false;
+            }
+            bool Abstr_AD()
+            {
+                if (CCC == "Abstract")
                 {
-                    if(CCC == "AM")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (ART())
                     {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(functions())
+                        if (CCC == "ID")
                         {
-                            if(Abs_N())
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (CCC == "(")
                             {
-                                return true;
+                                i++;
+                                CCC = TS[i].Get_CP();
+                                if (Func_Cond())
+                                {
+                                    if (CCC == ")")
+                                        i++;
+                                    CCC = TS[i].Get_CP();
+                                    if (CCC == ";")
+                                    {
+                                        i++;
+                                        CCC = TS[i].Get_CP();
+                                        return true;
+                                    }
+                                }
                             }
                         }
                     }
-                    else if(CCC == "}")
-                    {
-                        return true;
-                    }
-                    return false;
                 }
-                bool functions()
+                return false;
+            }
+            bool Abs_N()
+            {
+                if (CCC == "AM")
                 {
-                    if(Abstr_AD())
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (functions())
                     {
-                        return true;
+                        if (Abs_N())
+                        {
+                            return true;
+                        }
                     }
-                    else if(Func_st())
-                    {
-                        return true;
-                    }
-                    return false;
                 }
+                else if (CCC == "}")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool functions()
+            {
+                if (Abstr_AD())
+                {
+                    return true;
+                }
+                else if (Func_st())
+                {
+                    return true;
+                }
+                return false;
+            }
 
-                bool ART()
+            bool ART()
+            {
+                if (CCC == "DT" || CCC == "void")
                 {
-                    if(CCC == "DT" || CCC =="void")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    return false;
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
                 }
+                return false;
+            }
 
             bool Arr_Dec_E()
             {
@@ -1159,125 +1159,275 @@ namespace cfg_ss
             }
 
             bool Body()
+            {
+                if (CCC == "{")
                 {
-                    if(CCC == "{")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (MST())
                     {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(MST())
-                        {
-                            if(CCC == "}")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                return true;
-                            }
-                            
-                        }
-                    }
-                    return false;
-                }
-            
-                bool MST()
-                {
-                
-                    if (SST())
-                    {
-                        if (MST())
-                        {
-                            return true;
-                        }
-                    }
-               
-                    else if (CCC == "}" || CCC == "AM" || CCC == "Break")
-                    {
-                        
-                        return true;
-                    }
-
-                    return false;
-                }
-                bool SST()
-                {
-            
-                    if(If_st())
-                    {
-                        return true;
-                    }
-                    else if(Iff_st())
-                    {
-                        return true;
-                    }
-                    else if(Floop_st())
-                    {
-                        return true;
-                    }
-                    else if(Wlloop_st())
-                    {
-                        return true;
-                    }
-                    else if(Break_st())
-                    {
-                        return true;
-                    }
-                    else if(Jump_st())
-                    {
-                        return true;
-                    }
-                    else if(Ret_st())
-                    {
-                        return true;
-                    }
-                    else if(sw_st())
-                    {
-                        return true;
-                    }
-                    else if(LocalDec())
-                    {
-                         return true;
-                    }
-                   else if(CCC == "ID")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(SST_2())
-                        {
-                            if(CCC == ";")
-                                i++;
-                            CCC = TS[i].Get_CP();
-                            return true;
-                        }
-                    }
-                    else if(CCC == "AM")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(RT1())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                bool If_st()
-                {
-                    if(CCC == "If")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "(")
+                        if (CCC == "}")
                         {
                             i++;
                             CCC = TS[i].Get_CP();
-                            if(Exp())
+                            return true;
+                        }
+
+                    }
+                }
+                return false;
+            }
+
+            bool MST()
+            {
+
+                if (SST())
+                {
+                    if (MST())
+                    {
+                        return true;
+                    }
+                }
+
+                else if (CCC == "}" || CCC == "AM" || CCC == "Break")
+                {
+
+                    return true;
+                }
+
+                return false;
+            }
+            bool SST()
+            {
+
+                if (If_st())
+                {
+                    return true;
+                }
+                else if (Iff_st())
+                {
+                    return true;
+                }
+                else if (Floop_st())
+                {
+                    return true;
+                }
+                else if (Wlloop_st())
+                {
+                    return true;
+                }
+                else if (Break_st())
+                {
+                    return true;
+                }
+                else if (Jump_st())
+                {
+                    return true;
+                }
+                else if (Ret_st())
+                {
+                    return true;
+                }
+                else if (sw_st())
+                {
+                    return true;
+                }
+                else if (LocalDec())
+                {
+                    return true;
+                }
+                else if (CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (SST_2())
+                    {
+                        if (CCC == ";")
+                            i++;
+                        CCC = TS[i].Get_CP();
+                        return true;
+                    }
+                }
+                else if (CCC == "AM")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (RT1())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool If_st()
+            {
+                if (CCC == "If")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "(")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (Exp())
+                        {
+                            if (CCC == ")")
                             {
-                                if(CCC == ")")
+                                i++;
+                                CCC = TS[i].Get_CP();
+                                if (Body())
+                                {
+                                    if (Else_st())
+                                    {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+            bool Else_st()
+            {
+                if (CCC == "Else")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Body())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool Iff_st()
+            {
+                if (CCC == "Iff")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+
+                    if (CCC == "(")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (Exp())
+                        {
+                            if (CCC == ")")
+                            {
+                                i++;
+                                CCC = TS[i].Get_CP();
+                                if (Body())
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+
+                }
+                return false;
+            }
+            bool Jump_st()
+            {
+                if (CCC == "Jump")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (CCC == ";")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            bool Break_st()
+            {
+                if (CCC == "Break")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == ";")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        return true;
+                    }
+                }
+                return false;
+
+            }
+
+            bool sw_st()///////////////////
+            {
+                if (CCC == "Switch")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "(")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (CCC == "ID")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (CCC == ")")
+                            {
+                                i++;
+                                CCC = TS[i].Get_CP();
+                                if (CCC == "{")
                                 {
                                     i++;
                                     CCC = TS[i].Get_CP();
-                                    if(Body())
+                                    if (Case())
                                     {
-                                        if(Else_st())
+                                        if (Default())
+                                        {
+                                            if (CCC == "}")
+                                                i++;
+                                            CCC = TS[i].Get_CP();
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+            bool Case()
+            {
+                if (CCC == "Case")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Case_2())
+                    {
+                        if (CCC == ":")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (Body())
+                            {
+                                if (CCC == "Break")
+                                {
+                                    i++;
+                                    CCC = TS[i].Get_CP();
+                                    if (CCC == ";")
+                                    {
+                                        i++;
+                                        CCC = TS[i].Get_CP();
+                                        if (Case())
                                         {
                                             return true;
                                         }
@@ -1286,195 +1436,45 @@ namespace cfg_ss
                             }
                         }
                     }
-                    return false;
                 }
-                bool Else_st()
+                else if (CCC == "Default")
                 {
-                    if(CCC == "Else")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if (Body())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                bool Iff_st()
-                {
-                    if(CCC == "Iff")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-
-                        if (CCC == "(")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if (Exp())
-                            {
-                                if (CCC == ")")
-                                {
-                                    i++;
-                                    CCC = TS[i].Get_CP();
-                                    if (Body())
-                                    {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                    return false;
-                }
-                bool Jump_st()
-                {
-                    if(CCC == "Jump")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if (CCC == "ID")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(CCC == ";")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                return true;
-                            }
-                        }
-                    }
-                    return false;
-                }
-                bool Break_st()
-                {
-                    if(CCC == "Break")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == ";")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            return true;
-                        }
-                    }
-                    return false;
-
-                }
-               
-                bool sw_st()///////////////////
-                {
-                    if(CCC == "Switch")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "(")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(CCC == "ID")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(CCC == ")")
-                                {
-                                    i++;
-                                    CCC = TS[i].Get_CP();
-                                    if(CCC == "{")
-                                    {
-                                        i++;
-                                        CCC = TS[i].Get_CP();
-                                        if(Case())
-                                        {
-                                            if(Default())
-                                            {
-                                                if(CCC == "}")
-                                                    i++;
-                                                CCC = TS[i].Get_CP();
-                                                return true;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    return false;
-                }
-                bool Case()
-                {
-                    if(CCC == "Case")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(Case_2())
-                        {
-                            if(CCC == ":")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(Body())
-                                {
-                                    if(CCC == "Break")
-                                    {
-                                        i++;
-                                        CCC = TS[i].Get_CP();
-                                        if(CCC == ";")
-                                        {
-                                            i++;
-                                            CCC = TS[i].Get_CP();
-                                            if(Case())
-                                            {
-                                                return true;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if(CCC == "Default")
-                    {
-                        return true;
-                    }
-                   
-                    return false;
-                }
-                bool Case_2()
-                {
-                    if(CCC == "Int_Const" || CCC == "Char_Const")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    return false;
+                    return true;
                 }
 
-                bool Default()
+                return false;
+            }
+            bool Case_2()
+            {
+                if (CCC == "Int_Const" || CCC == "Char_Const")
                 {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                return false;
+            }
+
+            bool Default()
+            {
                 if (CCC == "Default")
                 {
                     i++;
                     CCC = TS[i].Get_CP();
-                    if(CCC == ":")
+                    if (CCC == ":")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if(DFB())
+                        if (DFB())
                         {
                             return true;
                         }
                     }
                 }
-                    return false;
-                }
-                bool DFB()
-                {
+                return false;
+            }
+            bool DFB()
+            {
                 if (CCC == "Break")
                 {
                     i++;
@@ -1501,146 +1501,146 @@ namespace cfg_ss
                     }
                 }
                 return false;
-                }
-                bool  LIST()
+            }
+            bool LIST()
+            {
+                if (CCC == ";")
                 {
-                    if(CCC == ";" )
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                else if (CCC == ",")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "DT")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    else if(CCC == ",")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "DT")
+                        if (CCC == "ID")
                         {
                             i++;
                             CCC = TS[i].Get_CP();
-                            if(CCC == "ID")
+                            if (INIT())
                             {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(INIT())
+                                if (LIST())
                                 {
-                                    if(LIST())
-                                    {
-                                        return true;
-                                    }
+                                    return true;
                                 }
-
                             }
+
                         }
                     }
-                    return false;
                 }
-                bool INIT()
+                return false;
+            }
+            bool INIT()
+            {
+                if (CCC == "=")
                 {
-                    if(CCC == "=")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Exp())
                     {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if (Exp())
+                        return true;
+                    }
+                }
+                else if (CCC == "," || CCC == ";")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool DecINIT()
+            {
+                if (CCC == "," || CCC == ";" || CCC == "=")
+                {
+                    if (INIT())
+                    {
+                        if (LIST())
                         {
                             return true;
                         }
                     }
-                    else if(CCC == "," || CCC == ";")
-                    {
-                        return true;
-                    }
-                    return false;
                 }
-                bool DecINIT()
+                return false;
+            }
+            bool Dec()
+            {
+                if (CCC == "AM")
                 {
-                    if(CCC == "," || CCC == ";" || CCC == "=")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "DT")
                     {
-                        if(INIT())
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (CCC == "ID")
                         {
-                            if(LIST())
+                            if (DecINIT())
                             {
                                 return true;
                             }
                         }
                     }
-                    return false;
                 }
-                bool Dec()
+                return false;
+            }
+            bool Wlloop_st()
+            {
+                if (CCC == "Wloop")
                 {
-                    if (CCC == "AM" )
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == ":")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if(CCC == "DT")
+                        if (CCC == "[")
                         {
                             i++;
                             CCC = TS[i].Get_CP();
-                            if(CCC == "ID")
+                            if (Exp())
                             {
-                                if(DecINIT())
+                                if (CCC == "]")
                                 {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    return false;
-                }
-                bool Wlloop_st()
-                {
-                    if(CCC == "Wloop")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC== ":")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(CCC == "[")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(Exp())
-                                {
-                                    if(CCC == "]")
-                                    {
-                                        i++;
-                                        CCC = TS[i].Get_CP();
+                                    i++;
+                                    CCC = TS[i].Get_CP();
 
-                                        if (Body())
+                                    if (Body())
+                                    {
+                                        if (CCC == "EndWloop")
                                         {
-                                            if (CCC == "EndWloop")
-                                            {
-                                                i++;
-                                                CCC = TS[i].Get_CP();
-                                                return true;
-                                            }
+                                            i++;
+                                            CCC = TS[i].Get_CP();
+                                            return true;
                                         }
                                     }
                                 }
                             }
                         }
-
                     }
-                    return false;
+
                 }
-                bool Floop_st()
+                return false;
+            }
+            bool Floop_st()
+            {
+                if (CCC == "Floop")
                 {
-                    if(CCC == "Floop")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == ":")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if(CCC == ":")
+                        if (CCC == "[")
                         {
                             i++;
                             CCC = TS[i].Get_CP();
-                            if(CCC == "[")
+                            if (C1())
                             {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(C1())
-                                {
                                 if (C2())
                                 {
                                     if (CCC == ";")
@@ -1667,179 +1667,349 @@ namespace cfg_ss
                                     }
                                 }
                             }
-                            }
                         }
                     }
-                    return false;
                 }
-                bool C1()
+                return false;
+            }
+            bool C1()
+            {
+                if (LocalDec())
                 {
-                    if(LocalDec())
-                    {
-                        return true;
-                    }
-                    else if(Asgn())
-                    {
+                    return true;
+                }
+                else if (Asgn())
+                {
                     if (CCC == ";")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
                         return true;
                     }
-                      
-                    }
-                    else if(CCC == ";")
-                    {
-                        return true;
-                    }
-                    return false;
+
                 }
-                bool C2()
+                else if (CCC == ";")
                 {
-                    if(Exp())
-                    {
-                        return true;
-                    }
-                    else if(CCC == ";")
-                    {
-                        return true;
-                    }
-                    return false;
+                    return true;
                 }
-                bool C3()
+                return false;
+            }
+            bool C2()
+            {
+                if (Exp())
                 {
-                    if(CCC == "ID")
+                    return true;
+                }
+                else if (CCC == ";")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool C3()
+            {
+                if (CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (C33())
+                    {
+                        return true;
+                    }
+                }
+                else if (CCC == "INC_DEC")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if (C33())
+                        return true;
+                    }
+                }
+                else if (CCC == "]")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool C33()
+            {
+                if (AS1())
+                {
+                    return true;
+                }
+                else if (CCC == "INC_DEC")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                return false;
+            }
+            bool Asgn()
+            {
+                if (CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (AS1())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool AS1()
+            {
+                if (Asgn_Op())
+                {
+
+                    if (Exp())
+                    {
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool Asgn_Op()
+            {
+                if (CCC == "=" || CCC == "Asgn_Op")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+
+                }
+                return false;
+            }
+            bool Ret_st()
+            {
+                if (CCC == "return")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Exp())
+                    {
+                        if (CCC == ";")
                         {
+                            i++;
+                            CCC = TS[i].Get_CP();
                             return true;
                         }
+
                     }
-                    else if(CCC == "INC_DEC")
+                }
+                return false;
+            }
+
+            bool Constr_Call1()
+            {
+                if (CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Call1_Constr())
+                    {
+                        return true;
+                    }
+
+                }
+                return false;
+            }
+            bool Call1_Constr()
+            {
+                if (CCC == "=")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "new")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if(CCC=="ID")
+                        if (CCC == "ID")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (CCC == "(")
+                            {
+                                i++;
+                                CCC = TS[i].Get_CP();
+                                if (Func_Cond())
+                                {
+                                    if (CCC == ")")
+                                    {
+                                        i++;
+                                        CCC = TS[i].Get_CP();
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (CCC == ";")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool APL()
+            {
+                if (CCC == "Int_Const" || CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                else if (CCC == "]")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool DecArrWala()
+            {
+                if (CCC == "[")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (APL())
+                    {
+                        if (CCC == "]")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (DecArrWala2())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+                return false;
+            }
+            bool DecArrWala2()
+            {
+                if (CCC == "[")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (APL())
+                    {
+                        if (CCC == "]")
                         {
                             i++;
                             CCC = TS[i].Get_CP();
                             return true;
                         }
                     }
-                    else if(CCC == "]")
-                    {
-                        return true;
-                    }
-                    return false;
                 }
-                bool C33()
+                else if (CCC == ";" || CCC == "{" || CCC == "=")
                 {
-                    if (AS1())
-                    {
-                        return true;
-                    }
-                    else if (CCC == "INC_DEC")
+                    return true;
+                }
+
+                return false;
+            }
+
+            bool INIT_Arr()
+            {
+                if (CCC == ";")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                else if (CCC == "=")
+                {
+
+                    i++;
+                    CCC = TS[i].Get_CP();
+
+                    if (CCC == "{")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    return false;
-                }
-                bool Asgn()
-                {
-                    if(CCC == "ID")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(AS1())
+                        if (NewArray())
                         {
+
                             return true;
                         }
                     }
-                    return false;
                 }
-                bool AS1()
+
+                return false;
+            }
+
+            bool Arr_C()
+            {
+                if (Id_Const())
                 {
-                    if (Asgn_Op())
+                    if (Arr_C2())
                     {
-               
-                    if (Exp())
+                        if (CCC == "}")
                         {
-                        
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                bool Asgn_Op()
-                {
-                    if(CCC == "=" || CCC =="Asgn_Op")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                        
-                    }
-                    return false;
-                }
-                bool Ret_st()
-                {
-                    if(CCC=="return")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(Exp())
-                        {
-                            if(CCC == ";")
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (CCC == ";")
                             {
                                 i++;
                                 CCC = TS[i].Get_CP();
                                 return true;
                             }
-
                         }
                     }
-                    return false;
                 }
-
-                bool Constr_Call1()
+                return false;
+            }
+            bool Arr_C2()
+            {
+                if (CCC == ",")
                 {
-                    if(CCC == "ID")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Id_Const())
                     {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(Call1_Constr())
+                        if (Arr_C2())
                         {
                             return true;
                         }
-                       
+
                     }
-                    return false;
                 }
-                bool Call1_Constr()
+                else if (CCC == "}")
                 {
-                    if (CCC == "=")
+                    return true;
+                }
+                return false;
+            }
+            bool Arr_C3()
+            {
+                if (CCC == "{")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Id_Const())
                     {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if (CCC == "new")
+                        if (Arr_C2())
                         {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if (CCC == "ID")
+                            if (CCC == "}")
                             {
                                 i++;
                                 CCC = TS[i].Get_CP();
-                                if (CCC == "(")
+
+                                if (Arr_C4())
                                 {
-                                    i++;
-                                    CCC = TS[i].Get_CP();
-                                    if (Func_Cond())
+
+                                    if (CCC == "}")
                                     {
-                                        if (CCC == ")")
+                                        i++;
+                                        CCC = TS[i].Get_CP();
+                                        if (CCC == ";")
                                         {
                                             i++;
                                             CCC = TS[i].Get_CP();
@@ -1850,215 +2020,45 @@ namespace cfg_ss
                             }
                         }
                     }
-                    else if(CCC == ";")
-                    {
-                        return true;
-                    }
-                    return false;
                 }
-                bool APL()
+                return false;
+            }
+            bool Arr_C4()
+            {
+                if (CCC == ",")
                 {
-                    if(CCC == "Int_Const" || CCC == "ID")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    else if(CCC == "]")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool DecArrWala()
-                {
-                    if(CCC == "[")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(APL())
-                        {
-                            if(CCC == "]")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(DecArrWala2())
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-
-                    return false;
-                }
-                bool DecArrWala2()
-                {
-                    if (CCC == "[")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if (APL())
-                        {
-                            if (CCC == "]")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                return true;
-                            }
-                        }
-                    }
-                    else if(CCC == ";" || CCC == "{" || CCC=="=")
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-                
-                bool INIT_Arr()
-                {
-                    if(CCC == ";")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    else if(CCC == "=")
-                    {
-                    
                     i++;
                     CCC = TS[i].Get_CP();
-                   
                     if (CCC == "{")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                             if(NewArray())
-                            {
-                            
-                                return true;
-                            }
-                        }
-                    }
-                
-                    return false;
-                }
-
-                bool Arr_C()
-                {
-                    if(Id_Const())
-                    {
-                        if(Arr_C2())
-                        {
-                            if(CCC == "}")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(CCC == ";")
-                                {
-                                    i++;
-                                    CCC = TS[i].Get_CP();
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    return false;
-                }
-                bool Arr_C2()
-                {
-                    if(CCC == ",")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
                         if (Id_Const())
                         {
-                            if(Arr_C2())
+                            if (Arr_C2())
                             {
-                                return true;
-                            }
-                            
-                        }
-                    }
-                    else if(CCC == "}")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool Arr_C3()
-                {
-                    if(CCC == "{")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(Id_Const())
-                        {
-                           if(Arr_C2())
-                           {
                                 if (CCC == "}")
                                 {
                                     i++;
                                     CCC = TS[i].Get_CP();
-                                
                                     if (Arr_C4())
                                     {
-                                   
-                                        if (CCC == "}")
-                                        {
-                                            i++;
-                                            CCC = TS[i].Get_CP();
-                                            if (CCC == ";")
-                                            {
-                                                i++;
-                                                CCC = TS[i].Get_CP();
-                                                return true;
-                                            }
-                                        }
-                                    }
-                                }
-                           }
-                        }
-                    }
-                    return false;
-                }
-                bool Arr_C4()
-                {
-                    if(CCC == ",")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "{")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(Id_Const())
-                            {
-                                if(Arr_C2())
-                                {
-                                    if(CCC == "}")
-                                    {
-                                        i++;
-                                        CCC = TS[i].Get_CP();
-                                        if(Arr_C4())
-                                        {
-                                            return true;
-                                        }
+                                        return true;
                                     }
                                 }
                             }
                         }
                     }
-                    else if(CCC == "}")
-                    {
-                        return true;
-                    }
-                    return false;
                 }
-                bool NewArray()
+                else if (CCC == "}")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool NewArray()
             {
-                if (CCC == "Int_Const" || CCC == "Flt_Const" || CCC == "Char_Const" || CCC == "Str_Const" || CCC == "Bool_Const" || CCC =="ID")
+                if (CCC == "Int_Const" || CCC == "Flt_Const" || CCC == "Char_Const" || CCC == "Str_Const" || CCC == "Bool_Const" || CCC == "ID")
                 {
                     if (Arr_C())
                     {
@@ -2067,131 +2067,378 @@ namespace cfg_ss
                 }
                 else if (CCC == "{")
                 {
-                   
-                   if (Arr_C3())
-                   {
-                        return true;
-                   }
-                }
-                    return false;
-                }
-                bool Id_Const()
-                {
-                    if(CCC =="ID")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    else if(Const())
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool Const()
-                {
-                    if(CCC == "Int_Const" || CCC == "Flt_Const" ||  CCC == "Char_Const" || CCC == "Str_Const" || CCC == "Bool_Const")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    return false;
-                }
 
-                bool X()
-                {
-                    if(CCC == ",")
+                    if (Arr_C3())
                     {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(E())
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool Id_Const()
+            {
+                if (CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                else if (Const())
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool Const()
+            {
+                if (CCC == "Int_Const" || CCC == "Flt_Const" || CCC == "Char_Const" || CCC == "Str_Const" || CCC == "Bool_Const")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                return false;
+            }
+
+            bool X()
+            {
+                if (CCC == ",")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (E())
+                    {
+                        if (X())
                         {
-                            if(X())
+                            return true;
+                        }
+                    }
+                }
+                else if (CCC == "[")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (E())
+                    {
+                        if (CCC == "]")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (X())
                             {
                                 return true;
                             }
                         }
                     }
-                    else if(CCC == "[")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(E())
-                        {
-                            if(CCC == "]")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(X())
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    else if(CCC==")")
+                }
+                else if (CCC == ")")
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            bool FunctCall()
+            {
+                if (E())
+                {
+                    if (X())
                     {
                         return true;
                     }
-                    return false;
                 }
+                return false;
+            }
 
-                bool FunctCall()
+            bool Func_Call_Cond()
+            {
+                if (FunctCall())
                 {
-                    if(E())
+                    return true;
+                }
+                else if (CCC == ")")
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            bool N_Func()
+            {
+                if (CCC == "(")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Func_Call_Cond())
                     {
-                        if(X())
+                        if (CCC == ")")
                         {
+                            i++;
+                            CCC = TS[i].Get_CP();
                             return true;
                         }
                     }
-                    return false;
                 }
-
-                bool Func_Call_Cond()
+                else if (ObjC())
                 {
-                    if(FunctCall())
+                    if (A66())
                     {
                         return true;
                     }
-                    else if(CCC ==")" )
-                    {
-                        return true;
-                    }
-                    return false;
                 }
+                return false;
+            }
+            bool ObjC()
+            {
 
-                bool N_Func()
+                if (CCC == ".")
                 {
-                    if(CCC == "(")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if(Func_Call_Cond())
+                        if (A44())
                         {
-                            if(CCC == ")")
+                            if (ObjC2())
                             {
-                                i++;
-                                CCC = TS[i].Get_CP();
                                 return true;
                             }
                         }
                     }
-                    else if(ObjC())
+                }
+                return false;
+            }
+            bool ObjC2()
+            {
+                if (CCC == ".")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
                     {
-                        if(A66())
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (A44())
+                        {
+                            if (ObjC2())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                else if (CCC == "=" || CCC == ";")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool A44()
+            {
+                if (CCC == "[")
+                {
+
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (E())
+                    {
+                        if (CCC == "]")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+
+                            if (A55())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                else if (CCC == "(")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Func_Call_Cond())
+                    {
+                        if (CCC == ")")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            return true;
+                        }
+                    }
+                }
+
+                else if (CCC == "INC_DEC")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                else if (CCC == ";" || CCC == ".")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool A55()
+            {
+                if (CCC == "INC_DEC")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                else if (CCC == ";" || CCC == ".")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool A66()
+            {
+                if (AS1())
+                {
+                    return true;
+                }
+                else if (CCC == ";")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool VO()
+            {
+
+                if (CCC == "VO" || CCC == "VO")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+
+                    return true;
+                }
+                else if (CCC == "(")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool Return_Type()
+            {
+                if (CCC == "DT" || CCC == "void")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+
+                    return true;
+                }
+                else if (CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
+                    {
+                        return true;
+
+                    }
+                    if (VO())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool Func_st()
+            {
+                if (Return_Type())
+                {
+                    if (CCC == "ID")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (VO())
+                        {
+                            if (DecFuncCond())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+
+            bool DecFuncCond()
+            {
+                if (CCC == "(")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (Func_Cond())
+                    {
+                        if (CCC == ")")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (Body())
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+            bool FC2()
+            {
+                if (CCC == "[")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "]")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (FCB2())
                         {
                             return true;
                         }
                     }
-                    return false;
                 }
-                bool ObjC()
+                else if (CCC == "," || CCC == ")")
                 {
-               
-                    if (CCC == ".")
+                    return true;
+                }
+                return false;
+            }
+            bool FCB2()
+            {
+                if (CCC == "[")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "]")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        return true;
+                    }
+                }
+                else if (CCC == "," || CCC == ")")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool Func_Cond2()
+            {
+                if (CCC == ",")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "DT")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
@@ -2199,324 +2446,77 @@ namespace cfg_ss
                         {
                             i++;
                             CCC = TS[i].Get_CP();
-                            if(A44())
+                            if (FC2())
                             {
-                               if(ObjC2())
+                                if (Func_Cond2())
                                 {
                                     return true;
                                 }
                             }
                         }
                     }
-                    return false;
-                }
-                bool ObjC2()
-                {
-                    if(CCC == ".")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "ID")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(A44())
-                            {
-                                if(ObjC2())
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    else if(CCC == "=" || CCC == ";")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool A44()
-                {
-                    if(CCC == "[")
-                    {
-                    
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(E())
-                        {
-                            if(CCC == "]")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                            
-                                if(A55())
-                                {
-                                     return true;
-                                }
-                            }
-                        }
-                    }
-                    else if(CCC == "(")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(Func_Call_Cond())
-                        {
-                            if(CCC == ")")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                return true;
-                            }
-                        }
-                    }
-                
-                    else if(CCC == "INC_DEC")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    else if(CCC == ";" || CCC ==".")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool A55()
-                {
-                    if(CCC == "INC_DEC")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    else if (CCC == ";" || CCC == ".")
-                    {
-                        return true;
-                    }
-                return false;
-                }
-                bool A66()
-                {
-                    if(AS1())
-                    {
-                        return true;
-                    }
-                    else if(CCC ==";")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                    bool VO()
-                {
-                
-                    if(CCC == "VO" || CCC == "VO")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                    
-                        return true;
-                    }
-                    else if(CCC == "(")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool Return_Type()
-                {
-                    if(CCC == "DT" || CCC == "void")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
 
-                        return true;
-                    }
-                    else if(CCC =="ID")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "ID")
-                        {
-                            return true;
-
-                        }
-                        if(VO())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
                 }
-                bool Func_st()
-                {
-                    if(Return_Type())
-                    {
-                        if(CCC == "ID")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(VO())
-                            {
-                                if (DecFuncCond())
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    return false;
-                }
-
-                bool DecFuncCond()
-                {
-                    if(CCC == "(")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(Func_Cond())
-                        {
-                            if(CCC == ")")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(Body())
-                                {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                    return false;
-                }
-                bool FC2()
-                {
-                    if(CCC == "[")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC=="]")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(FCB2())
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    else if(CCC == "," || CCC == ")")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool FCB2()
-                {   
-                    if(CCC == "[")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "]")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            return true;
-                        }
-                    }
-                else if (CCC == "," || CCC == ")")
+                else if (CCC == ")")
                 {
                     return true;
                 }
                 return false;
-                }
-                bool Func_Cond2()
+            }
+
+            bool Func_Cond()
+            {
+                if (CCC == "DT")
                 {
-                    if(CCC == ",")
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
                     {
                         i++;
                         CCC = TS[i].Get_CP();
-                        if(CCC == "DT")
+                        if (FC2())
                         {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(CCC == "ID")
+                            if (Func_Cond2())
                             {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                if(FC2())
-                                {
-                                  if(Func_Cond2())
-                                    {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                    else if(CCC==")")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-
-                bool Func_Cond()
-                {
-                    if(CCC == "DT")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "ID")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(FC2())
-                            {
-                                if(Func_Cond2())
-                                {
-                                    return true;
-                                }
+                                return true;
                             }
                         }
                     }
-                    else if(CCC == ")")
-                    {
-                        return true;
-                    }
-                    return false;
                 }
-
-                bool SST_2()
+                else if (CCC == ")")
                 {
-                    if(N_Func())
-                    {
-                  
-                        return true;
-                    }
-                    else if(AS1())
-                    {
-                        return true;
-                    }
-                    else if(CCC == "INC_DEC")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        return true;
-                    }
-                    else if(Constr_Call1())
-                    {
-                        return true;
-                    }
-                    else if(Arr_Dec_E())
-                    {
-                        return true;
-                    }
-                    return false;
+                    return true;
                 }
+                return false;
+            }
+
+            bool SST_2()
+            {
+                if (N_Func())
+                {
+
+                    return true;
+                }
+                else if (AS1())
+                {
+                    return true;
+                }
+                else if (CCC == "INC_DEC")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    return true;
+                }
+                else if (Constr_Call1())
+                {
+                    return true;
+                }
+                else if (Arr_Dec_E())
+                {
+                    return true;
+                }
+                return false;
+            }
 
             bool RT1()
             {
@@ -2566,370 +2566,370 @@ namespace cfg_ss
                 return false;
             }
             bool CanBeMain()
+            {
+                if (CCC == "Main")
                 {
-                        if(CCC == "Main")
-                        {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "(")
-                        {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == ")")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(Body())
-                            {
-                                return true;
-                            }
-                        }
-                        }
-                        }
-               else if (CCC == "ID")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if (VO())
-                        {
-                            if (DecFuncCond())
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                return false;
-               }
-                bool RT2()
-                {
-                
-                    if(DecArrWala())
-                    {
-                        if(INIT_Arr())
-                        {
-                            return true;
-                        }
-                    }
-                    else if(DecINIT())
-                    {
-                        return true;
-                    }
-                    else if(VO())
-                    {
-                    
-                        if(DecFuncCond())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-
-                bool RT3()
-                {
-                    if(DecFuncCond())
-                    {
-                        return true;
-                    }
-                    else if(CCC == "ID")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(VO())
-                        {
-                            if(DecFuncCond())
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    return false;
-                }
-                
-               
-
-                bool Exp()
-                {
-                    if(O())
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-               
-                bool O()
-                {
-                    if(A())
-                    {
-                        if(O_Dash())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                bool O_Dash()
-                {
-                    if(CCC =="||")
-                    {
-                        if(A())
-                        {
-                            if(O_Dash())
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    else if ( CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool A()
-                {
-                    if(R())
-                    {
-                        if(A_Dash())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                bool A_Dash()
-                {
-                    if(CCC == "&&")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(R())
-                        {
-                            if(A_Dash())
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    else if ( CCC == "||" ||
-                             CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-                bool R()
-                {
-                    if(E())
-                    {
-                        if(R_Dash())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                bool R_Dash()
-                {
-                    if(CCC == "ROP")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(E())
-                        {
-                            if(R_Dash())
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    else if (CCC == "&&" || CCC == "||" ||
-                             CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool E()
-                {
-                    if(T())
-                    {
-                        if(E_Dash())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-                bool E_Dash()
-                {
-                    if(CCC == "PM")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(T())
-                        {
-                            if(E_Dash())
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    else if (CCC == "ROP" || CCC == "&&" || CCC == "||" ||
-                             CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool T()
-                {
-                    if(F())
-                    {
-                        if(T_Dash())
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-               bool T_Dash()
-                {
-                    if(CCC == "MDM")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(F())
-                        {
-                            if(T_Dash())
-                            {
-                                return true;
-                            }
-                        }
-                    }
-                    else if ( CCC == "PM" || CCC == "ROP" || CCC == "&&" ||
-                        CCC == "||" || CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool F()
-                {
-                    if(Const())
-                    {
-                        return true;
-                    }
-                    else if(CCC == "(")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(O())
-                        {
-                            if(CCC == ")")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                return true;
-                            }
-                        }
-                    }
-                    else if(CCC == "!")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(F())
-                        {
-                            return true;
-                        }
-                    }
-                   else if(CCC == "INC_DEC")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if(CCC == "ID")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            if(CCC == ";")
-                            {
-                                i++;
-                                CCC = TS[i].Get_CP();
-                                return true;
-                            }
-                        }
-                    }
-                    else if(CCC== "ID")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                 
-                        if(F_Dash())
-                        {
-                        
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-
-                bool F_Dash()
-                {
-                    if(SST_2())
-                    {
-                         return true;
-                    }
-                    else if(CCC == "MDM" || CCC ==  "PM" ||
-                       CCC == "ROP" || CCC == "&&" || CCC =="||" ||
-                       CCC== "," || CCC== ";" || CCC ==")" || CCC == "]" )
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                bool ArrayHoSakta()
-                {
-                    if (CCC == "[")
-                    {
-                        i++;
-                        CCC = TS[i].Get_CP();
-                        if (CCC == "]")
-                        {
-                            i++;
-                            CCC = TS[i].Get_CP();
-                            return true;
-                        }
-
-                    }
-                    else if(CCC =="If" || CCC == "Iff" || CCC == "Floop"
-                    || CCC == "Wloop" || CCC == "Switch" ||  CCC == "Break" 
-                    || CCC == "Jump" || CCC == "return"  || CCC == "ID" || CCC == "AM")
-                    {
-                    return true;
-                    }
-                    return false;
-                }
-                
-                bool LocalDec()
-                {
-                    if(CCC == "DT")
-                    {
                     i++;
                     CCC = TS[i].Get_CP();
-                        if(CCC == "ID")
-                        {
+                    if (CCC == "(")
+                    {
                         i++;
                         CCC = TS[i].Get_CP();
-                            if(DecINIT())
+                        if (CCC == ")")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            if (Body())
                             {
                                 return true;
                             }
                         }
                     }
-                    return false;
                 }
-              
+                else if (CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (VO())
+                    {
+                        if (DecFuncCond())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            bool RT2()
+            {
+
+                if (DecArrWala())
+                {
+                    if (INIT_Arr())
+                    {
+                        return true;
+                    }
+                }
+                else if (DecINIT())
+                {
+                    return true;
+                }
+                else if (VO())
+                {
+
+                    if (DecFuncCond())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            bool RT3()
+            {
+                if (DecFuncCond())
+                {
+                    return true;
+                }
+                else if (CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (VO())
+                    {
+                        if (DecFuncCond())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+
+
+            bool Exp()
+            {
+                if (O())
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            bool O()
+            {
+                if (A())
+                {
+                    if (O_Dash())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool O_Dash()
+            {
+                if (CCC == "||")
+                {
+                    if (A())
+                    {
+                        if (O_Dash())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool A()
+            {
+                if (R())
+                {
+                    if (A_Dash())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool A_Dash()
+            {
+                if (CCC == "&&")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (R())
+                    {
+                        if (A_Dash())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (CCC == "||" ||
+                         CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            bool R()
+            {
+                if (E())
+                {
+                    if (R_Dash())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool R_Dash()
+            {
+                if (CCC == "ROP")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (E())
+                    {
+                        if (R_Dash())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (CCC == "&&" || CCC == "||" ||
+                         CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool E()
+            {
+                if (T())
+                {
+                    if (E_Dash())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool E_Dash()
+            {
+                if (CCC == "PM")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (T())
+                    {
+                        if (E_Dash())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (CCC == "ROP" || CCC == "&&" || CCC == "||" ||
+                         CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool T()
+            {
+                if (F())
+                {
+                    if (T_Dash())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            bool T_Dash()
+            {
+                if (CCC == "MDM")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (F())
+                    {
+                        if (T_Dash())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (CCC == "PM" || CCC == "ROP" || CCC == "&&" ||
+                    CCC == "||" || CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool F()
+            {
+                if (Const())
+                {
+                    return true;
+                }
+                else if (CCC == "(")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (O())
+                    {
+                        if (CCC == ")")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            return true;
+                        }
+                    }
+                }
+                else if (CCC == "!")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (F())
+                    {
+                        return true;
+                    }
+                }
+                else if (CCC == "INC_DEC")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (CCC == ";")
+                        {
+                            i++;
+                            CCC = TS[i].Get_CP();
+                            return true;
+                        }
+                    }
+                }
+                else if (CCC == "ID")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+
+                    if (F_Dash())
+                    {
+
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            bool F_Dash()
+            {
+                if (SST_2())
+                {
+                    return true;
+                }
+                else if (CCC == "MDM" || CCC == "PM" ||
+                   CCC == "ROP" || CCC == "&&" || CCC == "||" ||
+                   CCC == "," || CCC == ";" || CCC == ")" || CCC == "]")
+                {
+                    return true;
+                }
+                return false;
+            }
+            bool ArrayHoSakta()
+            {
+                if (CCC == "[")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "]")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        return true;
+                    }
+
+                }
+                else if (CCC == "If" || CCC == "Iff" || CCC == "Floop"
+                || CCC == "Wloop" || CCC == "Switch" || CCC == "Break"
+                || CCC == "Jump" || CCC == "return" || CCC == "ID" || CCC == "AM")
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            bool LocalDec()
+            {
+                if (CCC == "DT")
+                {
+                    i++;
+                    CCC = TS[i].Get_CP();
+                    if (CCC == "ID")
+                    {
+                        i++;
+                        CCC = TS[i].Get_CP();
+                        if (DecINIT())
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
 
 
 
@@ -2940,76 +2940,313 @@ namespace cfg_ss
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
-
+           
         }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-    }
-    public class token
-    {
-        string class_part;
-        string value_part;
-        int line_no;
-       
-
-
-
-        public token(string cp, string vp, int ln)
+        
+        public class token
         {
-            class_part = cp;
-            value_part = vp;
-            line_no = ln;
+            string class_part;
+            string value_part;
+            int line_no;
+
+           
+
+
+            public token(string cp, string vp, int ln)
+            {
+                class_part = cp;
+                value_part = vp;
+                line_no = ln;
+                
+            }
+
+            public override string ToString()
+            {
+                return "(" + class_part + ' ' + '|' + ' ' + value_part + ' ' + '|' + ' ' + line_no + ")";
+            }
+
+
+        }
+        public class token2
+        {
+            string class_part;
+            string value_part;
+            string line_no;
+
+
+
+
+            public token2(string cp, string vp, string ln)
+            {
+                class_part = cp;
+                value_part = vp;
+                line_no = ln;
+            }
+
+            public override string ToString()
+            {
+                return "(" + class_part + ' ' + '|' + ' ' + value_part + ' ' + '|' + ' ' + line_no + ")";
+            }
+
+            public string Get_CP()
+            {
+                return class_part;
+            }
+            public string Get_VP()
+            {
+                return value_part;
+            }
+            public string Get_Line()
+            {
+                return line_no;
+            }
         }
 
-        public override string ToString()
+        //Symantec
+        public class ClassTable
         {
-            return "(" + class_part + ' ' + '|' + ' ' + value_part + ' ' + '|' + ' ' + line_no + ")";
+            public string name;
+            public string type;
+            public string cat;
+            public string parent;
+            ClassAttributes reference;
+
+            public ClassTable()
+            {
+                name = "";
+                type = "";
+                cat = "";
+                parent = "";
+                reference = null;
+            }
+
+            ClassTable(string n, string t, string c, string p, ClassAttributes r)
+            {
+                name = n;
+                type = t;
+                cat = c;
+                parent = p;
+                reference = r;
+            }
+            public List<ClassTable> cTable = new List<ClassTable>();
+          
+            
+            public bool Insert(string n, string t, string c, string p , ClassAttributes r)
+            {
+                ClassTable ct1 = new ClassTable(n, t, c, p, r);
+
+                if (!cTable.Contains(ct1))
+                {
+                    cTable.Add(new ClassTable(n, t, c, p, r));
+                    return true;
+                }
+                return false;
+            }
+
+            
+            public string lookup(string n)
+            {
+                string type = " ";
+                foreach(ClassTable ct1 in cTable)
+                {
+                    if(ct1.name == n)
+                    {
+                        type = ct1.type;
+                    }
+                }
+                return type;
+            }
+          
+        }
+       public class ClassAttributes
+        {
+            public string name;
+            public string type;
+            public string AM;
+            public string AT;
+            ClassAttributes refOfCT;
+
+            public ClassAttributes()
+            {
+                name = "";
+                type = "";
+                AM = "";
+                AT = "";
+                refOfCT = null;
+            }
+
+            public ClassAttributes(string n, string t, string a, string at, ClassAttributes r)
+            {
+                name = n;
+                type = t;
+                AM = a;
+                AT = at;
+                refOfCT = r;
+            }
+           public List<ClassAttributes> dataTable = new List<ClassAttributes>();
+
+            public bool Insert_CT(string n, string t, string a, string at, ref ClassAttributes r)
+            {
+                ClassAttributes ca = new ClassAttributes(n, t, a, at, r);
+
+                if(!dataTable.Contains(ca))
+                {
+                    dataTable.Add(new ClassAttributes(n, t, a, at, r));
+
+                    return true;
+                }
+                return false;
+            }
+           
+            //public string Lookup_CT(string n, out string t , out string a, out string at)
+            //{
+                
+            //}
+
         }
 
-       
-    }
-    public class token2
-    {
-        string class_part;
-        string value_part;
-        string line_no;
-
-
-
-
-        public token2(string cp, string vp, string ln)
+        public class FunctionData
         {
-            class_part = cp;
-            value_part = vp;
-            line_no = ln;
+            public string name;
+            public string type;
+            public int scope;
+
+
+            public FunctionData()
+            {
+                name = "";
+                type = "";
+                scope = 0;
+
+            }
+
+            public FunctionData(string n, string t, int s)
+            {
+                name = n;
+                type = t;
+                scope = s;
+            }
+           public  List<FunctionData> fData = new List<FunctionData>();
+
+            public bool Insert_FT(string n, string t, int s)
+            {
+                FunctionData fd = new FunctionData(n,t,s);
+
+                if(!fData.Contains(fd))
+                {
+                    fData.Add(new FunctionData(n, t, s));
+                    return true;
+                }
+                return false;
+            }
         }
 
-        public override string ToString()
+        public class Compatibility
         {
-            return "(" + class_part + ' ' + '|' + ' ' + value_part + ' ' + '|' + ' ' + line_no + ")";
+
+            string compatibilityCheck(string T1, string T2, string Op)
+            {
+                if (Op == "+" || Op == "-" || Op == "*" || Op == "/" || Op == "=" || Op == "||" || Op == "&&" || Op == "+=" || Op == "-=" ||
+                    Op == "*=" || Op == "/=" || Op == ">" || Op == "<" || Op == "==" || Op == ">=" || Op == "<=" || Op == "%" || Op == "%=" ||
+                    Op == "!" || Op == "!=")
+                {
+
+                    if (T1 == "int" && T2 == "int")
+                    {
+                        MessageBox.Show("Compatibility is checked. Plz Continue..");
+                    }
+                    else if (T1 == "float" && T2 == "float")
+                    {
+                        MessageBox.Show("Compatibility is checked. Plz Continue..");
+                    }
+                    else if (T1 == "char" && T2 == "char")
+                    {
+                        MessageBox.Show("Compatibility is checked. Plz Continue..");
+                    }
+                    else if (T1 == "string" && T2 == "string")
+                    {
+                        MessageBox.Show("Compatibility is checked. Plz Continue..");
+                    }
+                    else
+                        MessageBox.Show("Mismatch Error");
+                }
+
+                return "";
+            }
+        }
+
+        public class ScopeDeal
+        {
+            int scope = 0;
+
+            Stack<int> myStack = new Stack<int>();
+
+            int CreateScope()
+            {
+                scope++;
+                myStack.Push(scope);
+                return scope;
+            }
+
+            int DestroyScope()
+            {
+                myStack.Pop();
+                scope--;
+                return scope;
+            }
         }
         
-        public string Get_CP()
+        private void richTextBox7_TextChanged(object sender, EventArgs e)
         {
-            return class_part;
+
         }
-        public string Get_VP()
+
+        private void button2_Click(object sender, EventArgs e)
         {
-            return value_part;
-        }
-        public string Get_Line()
-        {
-            return line_no;
+            ClassTable ct = new ClassTable();
+            ClassAttributes ca = new ClassAttributes();
+            FunctionData fd = new FunctionData();
+            
+            void DisplayClass()
+            {
+
+                richTextBox7.Text = "NAME |\tTYPE |\tCATEGORY |\tPARENT\n";
+                for(int l=0;l<ct.cTable.Count;l++)
+                {
+                    richTextBox7.Text = richTextBox7.Text + ct.cTable[l].name + "|\t" + ct.cTable[l].type + "|\t" + ct.cTable[l].cat + "|\t" 
+                    + ct.cTable[l].parent ;
+                }
+            }
+
+            void DisplayClassData()
+            {
+                richTextBox8.Text = "NAME |\tTYPE |\tAM |\tAT \n";
+                for(int l=0;l<ca.dataTable.Count;l++)
+                {
+                    richTextBox8.Text = richTextBox8.Text + ca.dataTable[l].name + "|\t" + ca.dataTable[l].type + "|\t" + ca.dataTable[l].AM
+                    + "|\t" + ca.dataTable[l].AT ;
+                }
+            }
+
+            void DisplayFunctionData()
+            {
+                richTextBox9.Text = "NAME |\tTYPE |\tSCOPE \n";
+                for(int l=0;l<fd.fData.Count;l++)
+                {
+                    richTextBox9.Text = richTextBox9.Text + fd.fData[l].name + "|\t" + fd.fData[l].type + "|\t" + fd.fData[l].scope;
+                }
+            }
         }
     }
-
 }
 
